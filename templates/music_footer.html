@@ -1,0 +1,11 @@
+<footer class="footer fixed-bottom position-sticky" style="background-color: white">
+   {% if ivanomusic_presets.error_msg_1 != "" %}
+   <br>
+   <div class="alert alert-warning" align= "center">
+    <strong>Warning!</strong> {{ ivanomusic_presets.error_msg_1 }}
+  </div>
+  {% endif %}
+   <div class="footer-copyright text-center py-3"><span style="font-size: 85%"><b>©2020 Copyright: <a href="mailto:ivano.deleo@gmail.com" style ="color: #119FBF">Ivano De Leo </a></b>{{ivanomusic_presets.today_date}} {{ivanomusic_presets.today_time}}</span>
+  </div>
+</footer>
+	

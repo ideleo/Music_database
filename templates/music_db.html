@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header -->
+{% include "music_head.html" %}
+
+<body>
+<!-- Navbar -->
+{% include "music_navbar.html" %}
+<!-- Page content -->
+	<br>
+	<div class="container">	
+	  <div class="table-responsive">
+		<table class="table">
+			<thead>
+			  <tr style ="color: #119FBF">
+			    {% if local_list == "genre" %}
+				<th>Genre</th>
+				{% endif %}
+				{% if local_list == "artist" %}
+				<th>Artist</th>
+				{% endif %}
+				{% if local_list == "period" %}
+				<th>Period</th>
+				{% endif %}
+				{% if local_list == "media" %}
+				<th>Media</th>
+				{% endif %}
+				{% if local_list == "position" %}
+				<th>Position</th>
+				{% endif %}
+				<th>Album Name</th>
+				{% if local_list != "genre" %}
+				<th>Genre</th>
+				{% endif %}
+				{% if local_list != "artist" %}
+				<th>Artist</th>
+				{% endif %}
+				{% if local_list != "period" %}
+				<th>Period</th>
+				{% endif %}
+				{% if local_list != "position" %}
+				<th>Position</th>
+				{% endif %}
+				{% if local_list != "media" %}
+				<th>Media</th>
+				{% endif %}
+				<th></th>
+				<th></th>
+			  </tr>
+			</thead>
+			<tbody>
+	{% if local_list == "genre" %} 
+	{% for genre in genre %}
+			 <tr>
+				<td><a href="music?edit=genre&edit_key={{ genre.key.id() }}">{{ genre.music_type }}</a><a href="music?delete_type=genre&delete_key={{genre.key.id()}}"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a></td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>				
+			 </tr> 
+	  {% for entry in album %}
+		{% if entry.genre == genre.key %}
+			  <tr>
+			    <td> </td>
+				<td>{{ entry.album_name }}</td>
+				<td>{{ entry.artist.get().artist_name }}</td>
+				<td>{{ entry.period.get().period_name }}</td>
+				<td> </td>
+				<td> </td>
+			
+			  </tr>	
+		  {% for entry2 in position %}
+			{% if entry2.album == entry.key %}
+			  <tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			    <td>{{ entry2.position }}</td>
+				<td>{{entry2.media.get().media_type}}</td>
+			  </tr>	
+			{% endif %}
+		  {% endfor %}
+		{% endif %}
+	  {% endfor %}
+	{% endfor %}
+	{% endif %}
+	{% if local_list == "artist" %}
+	{% for artist in artist %}
+			 <tr>
+				<td><a href="music?edit=artist&edit_key={{artist.key.id()}}">{{ artist.artist_name }}</a><a href="music?delete_type=artist&delete_key={{artist.key.id()}}"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a></td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			 </tr> 
+	  {% for entry in album %}
+		{% if entry.artist == artist.key %}
+			  <tr>
+			    <td> </td>
+				<td>{{ entry.album_name }}</td>
+				<td>{{ entry.genre.get().music_type}}</td>
+				<td>{{ entry.period.get().period_name }}</td>
+				<td> </td>
+				<td> </td>
+			  </tr>	
+		  {% for entry2 in position %}
+			{% if entry2.album == entry.key %}
+			  <tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			    <td>{{ entry2.position }}</td>
+				<td>{{entry2.media.get().media_type}}</td>
+			  </tr>	
+			{% endif %}
+		  {% endfor %}
+		{% endif %}
+	  {% endfor %}
+	{% endfor %}
+	{% endif %}
+{% if local_list == "period" %}
+	{% for period in period %}
+			 <tr>
+				<td><a href="music?edit=period&edit_key={{period.key.id()}}">{{ period.period_name }}</a><a href="music?delete_type=period&delete_key={{period.key.id()}}"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a></td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			 </tr> 
+	  {% for entry in album %}
+		{% if entry.period == period.key %}
+			  <tr>
+			    <td> </td>
+				<td>{{ entry.album_name }}</td>
+				<td>{{ entry.genre.get().music_type }}</td>
+				<td>{{ entry.artist.get().artist_name }}</td>
+				<td> </td>
+				<td> </td>
+			  </tr>	
+		  {% for entry2 in position %}
+			{% if entry2.album == entry.key %}
+			  <tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			    <td>{{ entry2.position }}</td>
+				<td>{{entry2.media.get().media_type}}</td>
+			  </tr>	
+			{% endif %}
+		  {% endfor %}
+		{% endif %}
+	  {% endfor %}
+	{% endfor %}
+	{% endif %}
+	{% if local_list == "album" %}
+	{% for album in album %}
+			 <tr>
+				<td><a href="music?edit=album&edit_key={{album.key.id()}}">{{ album.album_name }}</a><a href="music?delete_type=album&delete_key={{album.key.id()}}"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a></td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			 </tr> 
+			  <tr>
+			    <td> </td>
+				<td>{{ album.genre.get().music_type }}</td>
+				<td>{{ album.artist.get().artist_name }}</td>
+				<td>{{ album.period.get().period_name }}</td>
+				<td> </td>
+				<td> </td>
+			  </tr>	
+		  {% for entry in position %}
+			{% if entry.album == album.key %}
+			  <tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			    <td>{{ entry.position }}</td>
+				<td>{{entry.media.get().media_type}}</td>
+			  </tr>	
+			{% endif %}
+		  {% endfor %}
+	{% endfor %}
+	{% endif %}
+	{% if local_list == "media" %}
+	{% for media in media %}
+			<tr>
+			  <td><a href="music?edit=media&edit_key={{media.key.id()}}">{{ media.media_type }}</a><a href="music?delete_type=media&delete_key={{media.key.id()}}"></><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a></td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			</tr>
+		 {% for entry in position %}
+		   {% if entry.media == media.key %}
+			<tr>
+			  <td> </td>
+			  <td>{{ entry.album.get().album_name }}</td>
+			  <td>{{ entry.album.get().genre.get().music_type }}</td>
+			  <td>{{ entry.album.get().artist.get().artist_name }}</td>
+			  <td>{{ entry.album.get().period.get().period_name }}</td>
+			  <td>{{ entry.position }}</td>
+			 </tr>
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+	{% endif %}
+	{% if local_list == "position" %}
+	{% for position in position %}
+		{% set include = "no" %}
+		{% if search %}
+			{% if search.lower() in position.album.get().album_name.lower() + position.album.get().artist.get().artist_name.lower() + position.album.get().genre.get().music_type.lower() +  position.media.get().media_type.lower() + position.album.get().period.get().period_name.lower() + position.position.lower() %}
+				{% set include = "yes" %}
+			{% endif %}
+		{% else %}
+			{% set include = "yes" %}
+		{% endif %}
+		{% if include == "yes" %}
+			<tr>
+			  <td><a href="music?edit=position&edit_key={{position.key.id()}}">{{ position.position }}<a href="music?delete_type=position&delete_key={{position.key.id()}}"></><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a></td>
+			  <td>{{ position.album.get().album_name }}</td>
+			  <td>{{ position.album.get().genre.get().music_type }}</td>
+			  <td>{{ position.album.get().artist.get().artist_name }}</td>
+			  <td>{{ position.album.get().period.get().period_name }}</td>
+			  <td>{{ position.media.get().media_type }}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}
+	{% endif %}
+	      </tbody>
+		</table>
+	  </div>
+	</div>
+	<br>
+<!-- Footer -->
+{% include "music_footer.html" %}
+	
+{% include "music_bootstrap_js.html" %}
+</body>
+
+</html>

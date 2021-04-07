@@ -1,0 +1,79 @@
+  <!-- Navigation -->
+   <nav class="navbar  sticky-top navbar-expand-lg navbar-dark navbar-fixed-top" style="background-color: #119FBF;"> 
+    <div class="container">
+      <a class="navbar-brand" href="/music?list=all">Music Database</a>
+     
+	 
+	 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+		{% if session.user_type != "sys_admin" %}
+		   <li class="nav-item">
+            <a class="nav-link" href="music_input">Input
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="music?list=genre">Genre
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="music?list=artist">Artist
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="music?list=period">Period
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="music?list=album">Album
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="music?list=position">Position
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>	 
+		  <li class="nav-item">
+            <a class="nav-link" href="music?list=media">Media
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>	
+		{% endif %}
+		  <li class="nav-item">
+            <a class="nav-link" href="music_my_user">My User
+			<span class="sr-only">(current)</span>
+			</a>
+		  </li> 
+		{% if session.user_type == "sys_admin" or session.user_type == "admin" %}
+		  <li class="nav-item">
+            <a class="nav-link" href="music_users">Users
+			<span class="sr-only">(current)</span>
+			</a>
+		  </li>
+		{% endif %}
+		  <li class="nav-item">
+            <a class="nav-link" href="/music_db_login?logout=logout">Logout
+			<span class="sr-only">(current)</span>
+			</a>
+          </li>
+		  <li>
+				<form class="form-inline my-2 my-lg-0" action="/music">
+					<input class="form-control mr-sm-2" type="hidden" name="local_list" value="{% if local_list %}{{local_list}}{% endif %}">
+					<input class="form-control mr-sm-2" type="search" name="search">
+					<button class="btn btn-outline-success my-2 my-sm-0 fa fa-search" style="background-color: #119FBF; color: white; 
+					border: 2px solid white" id="id_submit_button" onclick="$('#id_submit_button').css('color''background-color', '#FFFFFF' );"> Search</button>
+				</form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+ 

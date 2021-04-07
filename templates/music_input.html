@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header -->
+{% include "music_head.html" %}
+
+<body>
+<!-- Navbar -->
+{% include "music_navbar.html" %}
+  <!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="mt-5">Music Input</h2> 
+			</div> 
+		</div>	
+		<form action="/music_input" method="post">
+		<input type="hidden" name="edit_key" id="edit_key" value="{{ edit_key }}" class="form-control">
+		<input type="hidden" name="edit" id="edit" value="{{ edit }}" class="form-control">
+		{% if (edit is undefined) or (edit == "genre") or (edit == "album") %}
+		<div class="row">
+			<div class="col">
+				<label id="lb_genre"><b>Genre</b></label>
+				<input type="text" name="music_type" id="music_type" class="form-control" {% if edit == "genre" %} value = "{{edit_entry.music_type}}" {% endif %} {% if edit == "album" %} value = "{{ edit_entry.genre.get().music_type }}" {% endif %} required>
+			</div>
+		</div>
+		{% endif %}
+		{% if (edit is undefined) or (edit == "artist") or (edit == "album") %}
+		<div class="row">
+			<div class="col">
+				<label id="lb_genre"><b>Artist</b></label>
+				<input type="text" name="artist_name" id="artist_name" class="form-control" {% if edit == "artist" %} value = "{{edit_entry.artist_name}}" {% endif %} {% if edit == "album" %} value = "{{ edit_entry.artist.get().artist_name }}" {% endif %} required>
+			</div>
+		</div>
+		{% endif %}
+		{% if (edit is undefined) or (edit == "period") or (edit == "album") %}
+		<div class="row">
+			<div class="col">
+				<label id="lb_genre"><b>Period</b></label>
+				<input type="text" name="period_name" id="period_name" class="form-control" {% if edit == "period" %} value = "{{edit_entry.period_name}}" {% endif %} {% if edit == "album" %} value = "{{ edit_entry.period.get().period_name }}" {% endif %} required>
+			</div>
+		</div>
+		{% endif %}
+		{% if (edit is undefined) or (edit == "album") or (edit == "position") %}
+		<div class="row">
+			<div class="col">
+				<label id="lb_album_name"><b>Album</b></label>
+				<input type="text" name="album_name" id="album_name" class="form-control" {% if edit == "album" %} value = "{{edit_entry.album_name}}" {% endif %}{% if edit == "position" %} value = "{{ edit_entry.album.get().album_name }}" {% endif %} required>
+			</div>
+		</div>
+		{% endif %}
+		{% if (edit is undefined) or (edit == "position") or (edit == "album") %}		
+		<div class="row">
+			<div class="col">
+				<label id="lb_genre"><b>Position</b></label>
+				<input type="text" name="position" id="position" class="form-control" {% if edit == "position" %} value = "{{edit_entry.position}}" {% endif %} {% if edit == "album" %} value = "{% for entry in position %}{% if entry.album == edit_entry.key %}{{ entry.position }},{% endif %}{% endfor %}" {% endif %} required>
+			</div>
+		</div>
+		{% endif %}
+		{% if (edit is undefined) or (edit == "media")  or (edit == "position") or (edit == "album") %}
+		<div class="row">
+			<div class="col">
+				<label id="lb_genre"><b>Media</b></label>
+				<input type="text" name="media_type" id="media_type" class="form-control" {% if edit == "media" %} value = "{{edit_entry.media_type}}" {% endif %} {% if edit == "position" %} value = "{{ edit_entry.media.get().media_type }}" {% endif %} {% if edit == "album" %} value = "{% for entry in position %}{% if entry.album == edit_entry.key %}{{ entry.media.get().media_type }},{% endif %}{% endfor %}" {% endif %} required>
+			</div>
+		</div>
+		{% endif %}
+		<br>
+        <div class="text-center">
+			<button type="submit" class="btn btn-primary" style="background-color:#119FBF">Submit</button>	
+		</div>
+		</form>
+	</div>
+	<br>
+<!-- Footer -->
+{% include "music_footer.html" %}
+	
+{% include "music_bootstrap_js.html" %}
+</body>
+
+</html>
